@@ -1,0 +1,7 @@
+.text-sm {
+    font-size: x-small;
+}
+
+.react-datepicker__input-container .react-datepicker__calendar-icon {
+    top: 15%;
+}

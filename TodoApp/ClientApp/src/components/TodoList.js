@@ -14,6 +14,14 @@ const TodoList = () => {
     dispatch({ type: 'TOGGLE_COMPLETE', payload: todo });
   };
 
+  const formatDateTime = (dateTime) => {
+    return new Intl.DateTimeFormat('en-GB', { 
+      dateStyle: 'short',
+      timeStyle: 'short',
+      timeZone: 'Europe/Berlin'
+    }).format(new Date(dateTime));
+  }
+
   return (
     <ul className="list-group w-100">
       {state.todos.map((todo, index) => (
@@ -22,7 +30,7 @@ const TodoList = () => {
           className={`list-group-item ${todo.completed ? 'text-decoration-line-through' : ''} ${isOverdue(todo.deadline) ? 'text-danger' : ''}`}
         >
           <div className="d-flex justify-content-between align-items-center">
-            <div>
+            <div className="d-flex gap-2">
               <button
                 type="button"
                 className="btn btn-outline-light border border-0 text-success"
@@ -34,7 +42,11 @@ const TodoList = () => {
                   <FontAwesomeIcon icon="fa-regular fa-circle" />
                 )}
               </button>
-              <span className="ms-2">{todo.task} {todo.deadline && `(Deadline: ${todo.deadline})`}</span>
+              <div className="d-flex flex-column justify-content-center">
+                <div>{todo.task}</div>
+                <div className="text-sm text-muted fst-italic">{todo.deadline && `Due on: ${formatDateTime(todo.deadline)}`}</div>
+              </div>
+              
             </div>
             <div>
               <button
