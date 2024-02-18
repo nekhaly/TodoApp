@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
+import TodoContext  from '../TodoContext';
 
 const TodoInput = (props) => {
   const [task, setTask] = useState('');
   const [error, setError] = useState('');
+  const { dispatch } = useContext(TodoContext);
 
   const handleInputChange = (event) => {
     setTask(event.target.value);
@@ -16,10 +18,8 @@ const TodoInput = (props) => {
   const handleKeyPress = (event) => {
     if (event.key === 'Enter' && task.trim() !== '') {
       if (task.length > 10) {
-        // Save todo to localStorage
-        const todos = JSON.parse(localStorage.getItem('todos')) || [];
-        todos.push({ task, completed: false });
-        localStorage.setItem('todos', JSON.stringify(todos));
+        // Dispatch action to add todo
+        dispatch({ type: 'ADD_TODO', payload: { task, completed: false } });
 
         // Clear input field after saving todo
         setTask('');

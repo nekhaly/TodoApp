@@ -1,4 +1,5 @@
 import React from 'react';
+import { TodoProvider } from './TodoContext';
 import Layout from './components/Layout';
 import TodoInput from './components/TodoInput';
 import TodoList from './components/TodoList';
@@ -7,11 +8,13 @@ import './styles.css';
 
 const App = function(props) {
   return (
-    <Layout>
-      <Title />
-      <TodoInput />
-      <TodoList />
-    </Layout>
+    <TodoProvider>
+      <Layout>
+        <Title />
+        <TodoInput />
+        <TodoList />
+      </Layout>
+    </TodoProvider>
   );
 }
 
