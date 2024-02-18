@@ -7,16 +7,21 @@ const initialState = {
 };
 
 const todoReducer = (state, action) => {
-  switch (action.type) {
-    case 'ADD_TODO':
-      return {
-        ...state,
-        todos: [...state.todos, action.payload]
-      };
-    default:
-      return state;
-  }
-};
+    switch (action.type) {
+      case 'ADD_TODO':
+        return {
+          ...state,
+          todos: [...state.todos, action.payload]
+        };
+      case 'DELETE_TODO':
+        return {
+          ...state,
+          todos: state.todos.filter(todo => todo !== action.payload)
+        };
+      default:
+        return state;
+    }
+  };
 
 export const TodoProvider = ({ children }) => {
   const [state, dispatch] = useReducer(todoReducer, initialState);

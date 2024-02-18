@@ -1,8 +1,14 @@
 import React, { useContext } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+
 import TodoContext from './../TodoContext';
 
 const TodoList = () => {
-  const { state } = useContext(TodoContext);
+  const { state, dispatch } = useContext(TodoContext);
+
+  const handleDeleteTodo = (todo) => {
+    dispatch({ type: 'DELETE_TODO', payload: todo });
+  };
 
   return (
     <ul className="list-group w-100">
@@ -11,7 +17,14 @@ const TodoList = () => {
           key={index}
           className={`list-group-item ${todo.completed ? 'text-decoration-line-through' : ''} ${isOverdue(todo.deadline) ? 'text-danger' : ''}`}
         >
-          {todo.task} {todo.deadline && `(Deadline: ${todo.deadline})`}
+          <div className="d-flex justify-content-between align-items-center">
+            <div>{todo.task} {todo.deadline && `(Deadline: ${todo.deadline})`}</div>
+            <div>
+              <button type="button" class="btn btn-outline-light border border-0 text-danger" onClick={() => handleDeleteTodo(todo)}>
+                <FontAwesomeIcon icon="fa-solid fa-xmark" />
+              </button>
+            </div>
+          </div>
         </li>
       ))}
     </ul>

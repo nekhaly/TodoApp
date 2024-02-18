@@ -33,7 +33,7 @@ const TodoInput = (props) => {
   return (
     <div className="w-100">
       <input
-        className={"form-control-lg w-100 " + (error && 'invalid')}
+        className={"form-control-lg w-100 " + (error && 'border border-danger')}
         value={task}
         onChange={handleInputChange}
         onKeyPress={handleKeyPress}
