@@ -1,6 +1,7 @@
 import React from 'react';
-import { library } from '@fortawesome/fontawesome-svg-core'
-import { fas } from '@fortawesome/free-solid-svg-icons'
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { fas } from '@fortawesome/free-solid-svg-icons';
+import { far } from '@fortawesome/free-regular-svg-icons';
 
 import { TodoProvider } from './TodoContext';
 import Layout from './components/Layout';
@@ -10,7 +11,7 @@ import Title from './components/Title';
 
 import './styles.css';
 
-library.add(fas);
+library.add(fas, far);
 
 const App = function(props) {
   return (
