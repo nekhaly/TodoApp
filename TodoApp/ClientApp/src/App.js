@@ -3,6 +3,7 @@ import Layout from './components/Layout';
 import TodoInput from './components/TodoInput';
 import TodoList from './components/TodoList';
 import Title from './components/Title';
+import './styles.css';
 
 const App = function(props) {
   return (
