@@ -35,6 +35,7 @@ const TodoList = () => {
                 type="button"
                 className="btn btn-outline-light border border-0 text-success"
                 onClick={() => handleToggleComplete(todo)}
+                data-testid={'toggle_completed_' + index}
               >
                 {todo.completed ? (
                   <FontAwesomeIcon icon="fa-solid fa-check-circle" />
@@ -53,6 +54,7 @@ const TodoList = () => {
                 type="button"
                 className="btn btn-outline-light border border-0 text-danger"
                 onClick={() => handleDeleteTodo(todo)}
+                data-testid={'delete_' + index}
               >
                 <FontAwesomeIcon icon="fa-solid fa-xmark" />
               </button>
