@@ -1,15 +1,15 @@
 using Microsoft.EntityFrameworkCore;
 using TodoApp.Models;
 
-namespace TodoApp.Data
-{
-    public class TodoContext : DbContext
-    {
-        public DbSet<Todo> Todos { get; set; }
+namespace TodoApp.Data;
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            optionsBuilder.UseSqlite("Data Source=todoapp.db");
-        }
+public class TodoContext : DbContext
+{
+    public DbSet<Todo> Todos { get; set; } = null!;
+
+    public TodoContext(DbContextOptions<TodoContext> options)
+        : base(options)
+    {
     }
 }
+

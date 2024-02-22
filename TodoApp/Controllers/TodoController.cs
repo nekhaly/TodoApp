@@ -1,6 +1,67 @@
-﻿namespace TodoApp.Controllers
+﻿using Microsoft.AspNetCore.Mvc;
+using TodoApp.Models;
+using TodoApp.Services;
+
+namespace TodoApp.Controllers;
+
+[ApiController]
+[Route("api/[controller]")]
+public class TodoController : ControllerBase
 {
-    public class TodoController
+    private readonly TodoRepository _repository;
+
+    public TodoController(TodoRepository repository)
     {
+        _repository = repository;
+    }
+
+    [HttpPost]
+    public IActionResult CreateTodo([FromBody] Todo todo)
+    {
+        _repository.AddTodo(todo);
+        return CreatedAtAction(nameof(_repository.GetTodoById), new { id = todo.Id }, todo);
+    }
+
+    [HttpGet]
+    public IActionResult GetTodos()
+    {
+        return Ok(_repository.GetAllTodos());
+    }
+
+    [HttpGet("{id}")]
+    public IActionResult GetTodoById(int id)
+    {
+        var todo = _repository.GetTodoById(id);
+        if (todo == null)
+        {
+            return NotFound();
+        }
+        return Ok(todo);
+    }
+
+    [HttpPut("{id}")]
+    public IActionResult UpdateTodo(int id, [FromBody] Todo todo)
+    {
+        if (id != todo.Id)
+        {
+            return BadRequest();
+        }
+
+        _repository.UpdateTodo(todo);
+        return NoContent();
+    }
+
+    [HttpDelete("{id}")]
+    public IActionResult DeleteTodo(int id)
+    {
+        var existingTodo = _repository.GetTodoById(id);
+        if (existingTodo == null)
+        {
+            return NotFound();
+        }
+
+        _repository.DeleteTodo(id);
+        return NoContent();
     }
 }
+
