@@ -18,8 +18,13 @@ public class TodoController : ControllerBase
     [HttpPost]
     public IActionResult CreateTodo([FromBody] Todo todo)
     {
+        if (todo.Deadline.HasValue && todo.Deadline < DateTime.UtcNow)
+        {
+            return BadRequest("Deadline must be in the future.");
+        }
+
         _repository.AddTodo(todo);
-        return CreatedAtAction(nameof(_repository.GetTodoById), new { id = todo.Id }, todo);
+        return CreatedAtAction(nameof(GetTodoById), new { id = todo.Id }, todo);
     }
 
     [HttpGet]
