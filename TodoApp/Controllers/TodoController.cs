@@ -18,6 +18,10 @@ public class TodoController : ControllerBase
     [HttpPost]
     public IActionResult CreateTodo([FromBody] Todo todo)
     {
+        if (todo.TaskName!.Length < 10)
+        {
+            return BadRequest("Todo must be at least 10 characters long.");
+        }
         if (todo.Deadline.HasValue && todo.Deadline < DateTime.UtcNow)
         {
             return BadRequest("Deadline must be in the future.");
