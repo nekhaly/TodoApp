@@ -51,12 +51,26 @@ public class TodoController : ControllerBase
     [HttpPut("{id}")]
     public IActionResult UpdateTodo(int id, [FromBody] Todo todo)
     {
-        if (id != todo.Id)
+        var existingTodo = _repository.GetTodoById(id);
+        if (existingTodo == null)
         {
-            return BadRequest();
+            return NotFound();
         }
 
-        _repository.UpdateTodo(todo);
+        if (todo.TaskName != null)
+        {
+            existingTodo.TaskName = todo.TaskName;
+        }
+        if (todo.Deadline != null)
+        {
+            existingTodo.Deadline = todo.Deadline;
+        }
+        if (todo.Completed != null)
+        {
+            existingTodo.Completed = todo.Completed;
+        }
+
+        _repository.UpdateTodo(existingTodo);
         return NoContent();
     }
 

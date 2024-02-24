@@ -20,8 +20,12 @@ public class TodoRepository
 
     public Todo GetTodoById(int id)
     {
-        var todo = _context.Set<Todo>().FirstOrDefault(t => t.Id == id) ?? throw new Exception("Todo not found");
-        return todo;
+        var todo = _context.Set<Todo>().Find(id);
+        if (todo != null)
+        {
+            return todo;
+        }
+        throw new Exception("Todo not found");
     }
 
     public void AddTodo(Todo todo)

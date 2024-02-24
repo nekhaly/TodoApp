@@ -6,7 +6,7 @@ namespace TodoApp.Models
 
         public string? TaskName { get; set; }
 
-        public bool Completed { get; set; }
+        public bool? Completed { get; set; }
 
         public DateTime? Deadline { get; set; } // Nullable DateTime
     }

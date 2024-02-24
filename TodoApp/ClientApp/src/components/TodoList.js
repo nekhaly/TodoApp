@@ -6,16 +6,16 @@ import TodoContext from './../TodoContext';
 const TodoList = () => {
   const { state, dispatch } = useContext(TodoContext);
 
-  const handleDeleteTodo = (todo) => {
-    dispatch({ type: 'DELETE_TODO', payload: todo });
+  const handleDeleteTodo = (todoId) => {
+    dispatch({ type: 'DELETE_TODO', payload: todoId });
   };
 
-  const handleToggleComplete = (todo) => {
-    dispatch({ type: 'TOGGLE_COMPLETE', payload: todo });
+  const handleToggleComplete = (todoId) => {
+    dispatch({ type: 'TOGGLE_COMPLETE', payload: todoId });
   };
 
   const formatDateTime = (dateTime) => {
-    return new Intl.DateTimeFormat('en-GB', { 
+    return new Intl.DateTimeFormat('en-GB', {
       dateStyle: 'short',
       timeStyle: 'short',
       timeZone: 'Europe/Berlin'
@@ -34,7 +34,7 @@ const TodoList = () => {
               <button
                 type="button"
                 className="btn btn-outline-light border border-0 text-success"
-                onClick={() => handleToggleComplete(todo)}
+                onClick={() => handleToggleComplete(todo.id)}
                 data-testid={'toggle_completed_' + index}
               >
                 {todo.completed ? (
@@ -44,16 +44,15 @@ const TodoList = () => {
                 )}
               </button>
               <div className="d-flex flex-column justify-content-center">
-                <div>{todo.task}</div>
+                <div>{todo.taskName}</div>
                 <div className="text-sm text-muted fst-italic">{todo.deadline && `Due on: ${formatDateTime(todo.deadline)}`}</div>
               </div>
-              
             </div>
             <div>
               <button
                 type="button"
                 className="btn btn-outline-light border border-0 text-danger"
-                onClick={() => handleDeleteTodo(todo)}
+                onClick={() => handleDeleteTodo(todo.id)}
                 data-testid={'delete_' + index}
               >
                 <FontAwesomeIcon icon="fa-solid fa-xmark" />

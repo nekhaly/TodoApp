@@ -6,14 +6,14 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import TodoContext from '../TodoContext';
 
 const TodoInput = () => {
-  const [task, setTask] = useState('');
+  const [taskName, setTaskName] = useState('');
   const [error, setError] = useState('');
   const [deadline, setDeadline] = useState(null);
   const { dispatch } = useContext(TodoContext);
   const charLimitErrorText = 'Task must be longer than 10 characters.';
 
   const handleInputChange = (event) => {
-    setTask(event.target.value);
+    setTaskName(event.target.value);
     if (event.target.value.length > 10) {
       setError('');
     } else {
@@ -22,18 +22,18 @@ const TodoInput = () => {
   };
 
   const handleKeyPress = (event) => {
-    if (event.key === 'Enter' && task.trim() !== '') {
-      addTodo();
+    if (event.key === 'Enter' && taskName.trim() !== '') {
+      createTodo();
     }
   };
 
-  const addTodo = () => {
-    if (task.length > 10) {
+  const createTodo = () => {
+    if (taskName.length > 10) {
       // Dispatch action to add todo with task and deadline
-      dispatch({ type: 'ADD_TODO', payload: { task, completed: false, deadline } });
+      dispatch({ type: 'ADD_TODO', payload: { taskName, completed: false, deadline } });
 
       // Clear input field and deadline after saving todo
-      setTask('');
+      setTaskName('');
       setDeadline(null);
       setError('');
     } else {
@@ -47,19 +47,18 @@ const TodoInput = () => {
         <div className={"input-group input-group-lg"}>
           <input
             className={"form-control" + (error && " border border-danger")}
-            value={task}
+            value={taskName}
             onChange={handleInputChange}
             onKeyUp={handleKeyPress}
             placeholder="Enter task..."
           />
-          <button 
-            className={"input-group-text"} 
-            onClick={addTodo}
+          <button
+            className={"input-group-text"}
+            onClick={createTodo}
           >
             <FontAwesomeIcon icon="fa-solid fa-play" />
           </button>
         </div>
-        
         <DatePicker
           showIcon
           selected={deadline}
