@@ -232,5 +232,4 @@ _Pvt_Extensions
 .fake/
 
 # DB Artificats
-Migrations/
 *.db*
