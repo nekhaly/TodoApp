@@ -5,7 +5,7 @@ async function fetchTodos() {
 		if (!response.ok) {
 			throw new Error('Failed to fetch todos from the backend.');
 		}
-		return await response.json();
+		return response.json();
 	} catch (error) {
 		console.error('Error fetching todos:', error);
 		throw error;
@@ -25,7 +25,7 @@ async function createTodo(todoData) {
 		if (!response.ok) {
 			throw new Error('Failed to create todo.');
 		}
-		return await response.json();
+		return response.json();
 	} catch (error) {
 		console.error('Error creating todo:', error);
 		throw error;
@@ -45,7 +45,6 @@ async function updateTodo(todoId, todoData) {
 		if (!response.ok) {
 			throw new Error('Failed to update todo.');
 		}
-		return await response.json();
 	} catch (error) {
 		console.error('Error updating todo:', error);
 		throw error;
