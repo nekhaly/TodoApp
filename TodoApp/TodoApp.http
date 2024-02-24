@@ -1,4 +1,41 @@
 @TodoApp_HostAddress = http://localhost:5210
+@todoTestId = 1
+###
+### Create Todo
+###
+POST {{TodoApp_HostAddress}}/api/todo
+Content-Type: application/json
 
+{
+    "id": {{todoTestId}},
+    "taskName": "Create a test todo",
+    "deadline": "2024-02-28T12:00:00",
+    "completed": false
+}
+
+###
+### Get Todo By Id
+###
+GET {{TodoApp_HostAddress}}/api/todo/{{todoTestId}}
+
+
+###
+### Get All Todo
+###
 GET {{TodoApp_HostAddress}}/api/todo
 Accept: application/json
+
+###
+### Update Todo
+###
+PUT {{TodoApp_HostAddress}}/api/todo/{{todoTestId}}
+Content-Type: application/json
+
+{
+    "completed": true
+}
+
+###
+### Delete Todo
+###
+DELETE {{TodoApp_HostAddress}}/api/todo/{{todoTestId}}
